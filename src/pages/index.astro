@@ -1,0 +1,74 @@
+---
+import FreedomPixel from '../components/FreedomPixel.tsx';
+import c2paWasmSrc from '@contentauth/c2pa-web/resources/c2pa.wasm?url';
+import '../styles/watermark.css';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>PiexelFreedom</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+		<link rel="preload" as="fetch" type="application/wasm" href={c2paWasmSrc} crossorigin />
+	</head>
+	<body>
+		<main>
+			<header class="page-header">
+				<h1>PixelFreedom</h1>
+				<p>Edit, crop, resize, and convert a photo in one shot. The file you download comes out stripped of its metadata, so it stays undetectable.</p>
+			
+			</header>
+			<FreedomPixel client:load />
+		</main>
+		<style is:global>
+			/* Page chrome only — the Watermark app styles live in src/styles/watermark.css,
+			   shared with the Chrome extension sidebar. */
+			main {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 2rem 1rem 4rem;
+			}
+
+			.page-header {
+				text-align: center;
+				max-width: 600px;
+				margin: 0 auto 2.5rem;
+			}
+
+			.page-header h1 {
+				font-size: 2.5rem;
+				font-weight: 600;
+				letter-spacing: -0.03em;
+				margin: 0 0 0.75rem;
+				background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.page-header p {
+				color: var(--text-muted);
+				font-size: 1.0625rem;
+				margin: 0 0 1.5rem;
+			}
+
+			.note {
+				font-size: 0.875rem;
+				color: var(--text-muted);
+				background: rgba(255, 255, 255, 0.03);
+				border: 1px solid var(--border-color);
+				border-radius: var(--radius-md);
+				padding: 1rem;
+				text-align: left;
+			}
+			.note strong {
+				color: var(--text-main);
+			}
+		</style>
+	</body>
+</html>

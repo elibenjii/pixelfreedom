@@ -1,0 +1,903 @@
+/*
+ * Shared styles for the Watermark app. Used by both the Astro site
+ * (src/pages/index.astro) and the Chrome extension sidebar
+ * (extension/sidebar.tsx), so the UI stays identical in both.
+ */
+
+:root {
+	--bg-color: #0f1115;
+	--bg-panel: #1a1d24;
+	--bg-panel-hover: #22262f;
+	--text-main: #f0f2f5;
+	--text-muted: #9ba1a6;
+	--accent: #3b82f6;
+	--accent-hover: #2563eb;
+	--border-color: rgba(255, 255, 255, 0.08);
+	--border-hover: rgba(255, 255, 255, 0.15);
+	--success: #10b981;
+	--danger: #ef4444;
+	--radius-lg: 16px;
+	--radius-md: 8px;
+	--radius-sm: 6px;
+	--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: var(--bg-color);
+	color: var(--text-main);
+	font-family: var(--font-sans);
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Watermark App Layout */
+.wm {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.wm-layout {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+	.wm-has-file .wm-layout {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+	.wm-main-panel {
+		flex: 1;
+		min-width: 0;
+	}
+	.wm-sidebar {
+		width: 360px;
+		flex-shrink: 0;
+		position: sticky;
+		top: 2rem;
+	}
+}
+
+/* Panels & Cards */
+.wm-panel, .wm-sidebar > * {
+	background: var(--bg-panel);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-lg);
+	padding: 1.25rem;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	margin-bottom: 1rem;
+}
+
+.wm-main-panel {
+	background: var(--bg-panel);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-lg);
+	padding: 1.25rem;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Dropzone */
+.wm-drop {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 2.5rem 1.5rem;
+	border: 2px dashed var(--border-hover);
+	border-radius: var(--radius-md);
+	cursor: pointer;
+	color: var(--text-muted);
+	transition: all 0.2s ease;
+	background: rgba(255, 255, 255, 0.01);
+}
+.wm-has-file .wm-drop {
+	padding: 1rem;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 0.75rem;
+	border-style: solid;
+	border-color: var(--border-color);
+	background: transparent;
+}
+.wm-drop:hover {
+	border-color: var(--accent);
+	background: rgba(59, 130, 246, 0.05);
+}
+.wm-drop input { display: none; }
+
+/* File-row actions: "Change file" hint + a remove (✕) button */
+.wm-drop-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	flex-shrink: 0;
+}
+.wm-drop-change {
+	font-size: 0.8125rem;
+	opacity: 0.6;
+	white-space: nowrap;
+}
+.wm-drop:hover .wm-drop-change { opacity: 0.85; }
+.wm-drop-remove {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.75rem;
+	height: 1.75rem;
+	padding: 0;
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-sm);
+	background: transparent;
+	color: var(--text-muted);
+	cursor: pointer;
+	transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.wm-drop-remove:hover {
+	color: var(--danger);
+	border-color: var(--danger);
+	background: rgba(239, 68, 68, 0.1);
+}
+
+/* Steps explainer */
+.wm-steps {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	font-size: 0.875rem;
+	color: var(--text-muted);
+}
+.wm-step-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.wm-step-num {
+	width: 1.375rem;
+	height: 1.375rem;
+	border-radius: 50%;
+	background: rgba(59, 130, 246, 0.15);
+	color: var(--accent);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.75rem;
+	font-weight: 600;
+	flex-shrink: 0;
+}
+.wm-step-arrow { opacity: 0.4; }
+
+/* Stage */
+.wm-stage {
+	position: relative;
+	margin-top: 1.5rem;
+	background: #000;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	box-shadow: inset 0 0 0 1px var(--border-color);
+}
+.wm-stage canvas {
+	display: block;
+	max-width: 100%;
+	max-height: 68vh;
+	height: auto;
+	margin: 0 auto;
+}
+.wm-stage-info {
+	margin: 1rem 0 0;
+	font-size: 0.875rem;
+	color: var(--text-muted);
+	text-align: center;
+}
+.wm-stage-bar {
+	margin-top: 0.75rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.875rem 1rem;
+	flex-wrap: wrap;
+	padding: 1rem 1.25rem 1.25rem;
+	border-top: 1px solid var(--border-color);
+}
+.wm-stage-bar .wm-stage-info { margin: 0; text-align: left; }
+.wm-stage-status {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	min-width: 0;
+}
+.wm-stage-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-left: auto;
+	flex-shrink: 0;
+}
+.wm-applied {
+	color: var(--success);
+	font-weight: 500;
+}
+
+/* Interactive crop overrides */
+.wm-crop { position: relative; display: flex; justify-content: center; max-width: 100%; }
+/* "Drag to crop" prompt over the image; fades out once a selection exists. */
+.wm-crop-hint {
+	position: absolute;
+	top: 0.75rem;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 0.375rem 0.875rem;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.6);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 99px;
+	backdrop-filter: blur(4px);
+	pointer-events: none;
+	opacity: 1;
+	transition: opacity 0.25s ease;
+}
+.wm-crop-hint.is-hidden { opacity: 0; }
+.wm-crop .ReactCrop { max-width: 100%; }
+/* Cap the canvas to the viewport so tall photos don't push the action bar off screen */
+.wm-crop .ReactCrop img { max-height: 68vh; }
+.wm-crop .ReactCrop__drag-handle::after {
+	width: 16px;
+	height: 16px;
+	background-color: var(--accent);
+	border: 2px solid #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+/* A generous invisible hit area so handles are easy to grab, even on touch. */
+.wm-crop .ReactCrop__drag-handle::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 34px;
+	height: 34px;
+	transform: translate(-50%, -50%);
+}
+.wm-crop .ReactCrop__crop-selection {
+	border: 2px solid var(--accent) !important;
+}
+
+/* Controls */
+.wm-controls {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+.wm-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+/* Sidebar sections */
+.wm-sec {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+.wm-sec + .wm-sec:not(.wm-collapsible) {
+	border-top: 1px solid var(--border-color);
+	padding-top: 1.25rem;
+}
+.wm-sec-head {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+}
+.wm-sec-head .wm-step-num {
+	width: 1.25rem;
+	height: 1.25rem;
+	font-size: 0.6875rem;
+}
+
+/* Segmented Chips */
+.wm-chips {
+	display: flex;
+	flex-wrap: wrap;
+	background: rgba(0, 0, 0, 0.2);
+	padding: 0.25rem;
+	border-radius: var(--radius-md);
+	gap: 0.25rem;
+}
+.wm-chip {
+	flex: 1;
+	min-width: fit-content;
+	text-align: center;
+	padding: 0.4rem 0.75rem;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	border: none;
+	border-radius: var(--radius-sm);
+	background: transparent;
+	color: var(--text-muted);
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+.wm-chip:hover:not(:disabled):not(.is-active) {
+	background: rgba(255, 255, 255, 0.05);
+	color: var(--text-main);
+}
+.wm-chip.is-active {
+	background: var(--bg-panel-hover);
+	color: var(--text-main);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.wm-chip:disabled { opacity: 0.3; cursor: default; }
+
+/* Format picker: the long "Same as original (…)" chip takes a full row,
+   the three concrete formats split the row below — no orphan chip. */
+.wm-chips-formats {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+.wm-chips-formats .wm-chip:first-child {
+	grid-column: 1 / -1;
+}
+
+/* Inputs & Resizing */
+.wm-resize {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.wm-dim {
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+	font-size: 0.875rem;
+	color: var(--text-muted);
+}
+.wm-dim input {
+	width: 5rem;
+	padding: 0.4rem 0.5rem;
+	font-size: 0.875rem;
+	font-family: inherit;
+	background: rgba(0,0,0,0.2);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-sm);
+	color: var(--text-main);
+	transition: border-color 0.2s;
+}
+.wm-dim input:focus {
+	outline: none;
+	border-color: var(--accent);
+}
+.wm-scales { margin-top: 0.5rem; }
+
+/* Output-size bar — sits directly under the crop stage. Crop sets the shape,
+   this sets the exact pixels; always visible so exact sizes are discoverable. */
+.wm-outsize {
+	margin-top: 1rem;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.75rem 1rem;
+	padding: 0.75rem 1rem;
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+}
+.wm-outsize-lead {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.wm-outsize-label {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--text-main);
+}
+.wm-outsize .wm-scales { margin-top: 0; flex: 0 0 auto; }
+.wm-outsize-note {
+	margin-left: auto;
+	font-size: 0.75rem;
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+/* Buttons & Actions */
+.wm-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+.wm-actions-row {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.wm-btn {
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	font-family: inherit;
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	background: rgba(255, 255, 255, 0.03);
+	color: var(--text-main);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+}
+.wm-btn:hover:not(:disabled) {
+	background: rgba(255, 255, 255, 0.08);
+	border-color: var(--border-hover);
+}
+.wm-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.wm-btn-primary {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: #fff;
+	font-weight: 600;
+	padding: 0.75rem 1.25rem;
+	font-size: 1rem;
+	width: 100%;
+	box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+	flex-direction: column;
+	gap: 0.1rem;
+}
+.wm-btn-primary small {
+	font-size: 0.75rem;
+	font-weight: 500;
+	opacity: 0.85;
+}
+.wm-btn-primary:hover:not(:disabled) {
+	background: var(--accent-hover);
+	border-color: var(--accent-hover);
+	box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+	transform: translateY(-1px);
+}
+.wm-btn-ghost { background: transparent; border-color: transparent; }
+.wm-btn-ghost:hover:not(:disabled) { background: rgba(255,255,255,0.05); }
+/* Accent fill for the in-stage confirm action (Apply crop) */
+.wm-btn-accent {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: #fff;
+	font-weight: 600;
+}
+.wm-btn-accent:hover:not(:disabled) {
+	background: var(--accent-hover);
+	border-color: var(--accent-hover);
+}
+.wm-btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8125rem; }
+
+.wm-btn kbd {
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 4px;
+	padding: 0.1rem 0.4rem;
+	font-size: 0.75rem;
+	font-family: monospace;
+}
+
+/* Keyboard focus — a visible ring for keyboard/AT users only (mouse clicks
+   don't trigger :focus-visible, so the ring never shows on pointer use). */
+.wm-btn:focus-visible,
+.wm-chip:focus-visible,
+.wm-drop-remove:focus-visible,
+.wm-cleaned:focus-visible,
+.wm-meta-retry:focus-visible,
+.wm-dim input:focus-visible,
+.wm-quality input[type="range"]:focus-visible,
+summary:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+/* Keeps the spinner inline with its label even inside a column-flex button. */
+.wm-btn-busy {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+/* In-button spinner shown while a step is running. */
+.wm-spinner {
+	width: 1em;
+	height: 1em;
+	border: 2px solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	opacity: 0.9;
+	animation: wm-spin 0.6s linear infinite;
+}
+@keyframes wm-spin {
+	to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.wm-spinner { animation-duration: 1.4s; }
+}
+
+/* Meta Details & Logs */
+.wm-meta {
+	font-size: 0.8125rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+.wm-meta details {
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+	padding: 0.75rem;
+}
+.wm-meta summary {
+	cursor: pointer;
+	font-weight: 500;
+	color: var(--text-main);
+	user-select: none;
+}
+.wm-meta dl { margin: 0.5rem 0 0; }
+.wm-meta-row {
+	display: flex;
+	padding: 0.25rem 0;
+	border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.wm-meta-row:last-child { border-bottom: none; }
+.wm-meta-row dt {
+	flex: 0 0 7rem;
+	color: var(--text-muted);
+}
+.wm-meta-row dd {
+	margin: 0;
+	flex: 1;
+	min-width: 0;
+	color: var(--text-main);
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+.wm-log {
+	background: #000;
+	color: #a5b4fc;
+	border-radius: var(--radius-md);
+	padding: 1rem;
+	font-size: 0.8125rem;
+	font-family: ui-monospace, monospace;
+	line-height: 1.5;
+	white-space: pre-wrap;
+	border: 1px solid var(--border-color);
+	max-height: 200px;
+	overflow-y: auto;
+}
+.wm-error {
+	color: var(--danger);
+	background: rgba(239, 68, 68, 0.1);
+	border: 1px solid rgba(239, 68, 68, 0.2);
+	padding: 0.75rem 1rem;
+	border-radius: var(--radius-md);
+	font-size: 0.875rem;
+	font-weight: 500;
+}
+
+/* Pipeline summary above the primary button */
+.wm-summary {
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+	text-align: center;
+	line-height: 1.5;
+}
+.wm-summary strong {
+	color: var(--text-main);
+	font-weight: 600;
+}
+.wm-cleaned {
+	padding: 0;
+	border: none;
+	border-bottom: 1px dotted var(--text-muted);
+	background: transparent;
+	font: inherit;
+	color: var(--text-muted);
+	cursor: pointer;
+	white-space: nowrap;
+	transition: color 0.15s ease, border-color 0.15s ease;
+}
+.wm-cleaned:hover,
+.wm-cleaned[aria-expanded="true"] {
+	color: var(--text-main);
+	border-bottom-color: var(--text-main);
+}
+/* The disclosure body revealed by the "cleaned ⓘ" toggle. */
+.wm-cleaned-info {
+	margin: 0;
+	padding: 0.625rem 0.75rem;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	color: var(--text-muted);
+	background: rgba(59, 130, 246, 0.06);
+	border: 1px solid rgba(59, 130, 246, 0.2);
+	border-radius: var(--radius-sm);
+}
+
+/* Small dashed explainer (e.g. PNG is lossless) */
+.wm-note {
+	margin: 0;
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px dashed var(--border-hover);
+	border-radius: var(--radius-sm);
+	padding: 0.625rem 0.75rem;
+	line-height: 1.5;
+}
+.wm-note strong {
+	color: var(--text-main);
+}
+
+/* Collapsible optional section (Resize) */
+details.wm-collapsible {
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-md);
+}
+details.wm-collapsible summary {
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 0.875rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	user-select: none;
+}
+details.wm-collapsible summary::-webkit-details-marker {
+	display: none;
+}
+details.wm-collapsible summary:hover {
+	color: var(--accent);
+}
+.wm-opt {
+	font-size: 0.6875rem;
+	font-weight: 500;
+	color: var(--text-muted);
+	border: 1px solid var(--border-color);
+	border-radius: 99px;
+	padding: 0.1rem 0.5rem;
+}
+.wm-sec-value {
+	margin-left: auto;
+	font-weight: 500;
+	font-size: 0.75rem;
+	color: var(--text-muted);
+}
+.wm-chev {
+	margin-left: 0.25rem;
+	color: var(--text-muted);
+	font-size: 0.6875rem;
+	transition: transform 0.15s;
+}
+details.wm-collapsible[open] .wm-chev {
+	transform: rotate(90deg);
+}
+details.wm-collapsible > .wm-field {
+	padding: 0 0.875rem 0.875rem;
+}
+
+/* Crop toolbar row inside the stage bar */
+.wm-stage-toolbar {
+	flex-basis: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+.wm-stage-toolbar .wm-chips {
+	flex: 1 1 auto;
+}
+.wm-stage-toolbar .wm-stage-actions {
+	margin-left: auto;
+}
+
+/* Metadata diagnostics sit under the stage in the main panel */
+.wm-main-panel .wm-meta {
+	margin-top: 1rem;
+}
+
+/* Quality preset chips */
+.wm-presets {
+	margin-top: 0.25rem;
+}
+.wm-success {
+	margin: 0;
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--success);
+	background: rgba(16, 185, 129, 0.08);
+	border: 1px solid rgba(16, 185, 129, 0.25);
+	border-radius: var(--radius-md);
+}
+
+/* Helper buttons */
+.wm-note-btn {
+	font: inherit;
+	font-size: 0.75rem;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	color: var(--text-muted);
+	transition: color 0.2s;
+}
+.wm-note-btn:hover {
+	color: var(--accent);
+	text-decoration: underline dotted;
+}
+
+/* Resize helpers */
+.wm-resize-px,
+.wm-resize-src {
+	font-size: 0.8125rem;
+	color: var(--text-muted);
+}
+.wm-resize-src {
+	margin-left: 0.25rem;
+}
+
+/* Chip icon variant (swap orientation) */
+.wm-chip-icon {
+	flex: 0 0 auto;
+	padding: 0.4rem 0.6rem;
+}
+
+/* Quality slider */
+.wm-quality {
+	margin-top: 0.25rem;
+}
+.wm-quality label {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 0.875rem;
+	color: var(--text-muted);
+}
+.wm-quality strong {
+	color: var(--text-main);
+	min-width: 3rem;
+}
+.wm-quality input[type="range"] {
+	flex: 1;
+	height: 4px;
+	-webkit-appearance: none;
+	appearance: none;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 4px;
+	outline: none;
+	cursor: pointer;
+}
+.wm-quality input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	background: var(--accent);
+	border-radius: 50%;
+	border: 2px solid var(--bg-panel);
+	cursor: pointer;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	transition: transform 0.15s;
+}
+.wm-quality input[type="range"]::-webkit-slider-thumb:hover {
+	transform: scale(1.2);
+}
+.wm-quality input[type="range"]::-moz-range-thumb {
+	width: 16px;
+	height: 16px;
+	background: var(--accent);
+	border-radius: 50%;
+	border: 2px solid var(--bg-panel);
+	cursor: pointer;
+}
+
+/* Mode chip row (quality vs. file-size toggle) */
+.wm-mode {
+	margin-top: 0.25rem;
+}
+
+/* Metadata empty/warning/retry states */
+.wm-meta-empty {
+	margin: 0.25rem 0 0;
+	color: var(--text-muted);
+}
+.wm-meta-warning {
+	margin: 0.25rem 0 0.5rem;
+	color: #f59e0b;
+}
+.wm-meta-retry {
+	font-size: 0.8125rem;
+	font-family: inherit;
+	padding: 0.15rem 0.5rem;
+	cursor: pointer;
+	background: transparent;
+	border: 1px solid var(--border-color);
+	border-radius: var(--radius-sm);
+	color: var(--text-muted);
+	transition: all 0.2s;
+}
+.wm-meta-retry:hover {
+	color: var(--text-main);
+	border-color: var(--border-hover);
+}
+.wm-meta-raw {
+	margin-top: 0.5rem;
+	background: transparent !important;
+	border: none !important;
+	padding: 0 !important;
+}
+.wm-meta-raw pre {
+	margin-top: 0.25rem;
+	padding: 0.75rem;
+	background: #000;
+	color: #a5b4fc;
+	border-radius: var(--radius-md);
+	font-size: 0.75rem;
+	line-height: 1.4;
+	overflow-x: auto;
+	max-height: 20rem;
+	overflow-y: auto;
+	border: 1px solid var(--border-color);
+}
+
+/* Number input hide spinner for cleaner look */
+.wm-dim input[type="number"]::-webkit-inner-spin-button,
+.wm-dim input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.wm-dim input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+/* Single-column contexts (extension sidebar, mobile): tighter rhythm, and a
+   stage toolbar that doesn't leave orphaned controls on wrapped rows. */
+@media (max-width: 899px) {
+	.wm,
+	.wm-layout {
+		gap: 1rem;
+	}
+	.wm-stage {
+		margin-top: 1rem;
+	}
+	.wm-stage-bar {
+		margin-top: 0.75rem;
+		padding-top: 0.75rem;
+	}
+	/* Keep the aspect chips on one row — compact so the swap icon fits too. */
+	.wm-stage-toolbar .wm-chips {
+		flex-wrap: nowrap;
+	}
+	.wm-stage-toolbar .wm-chip {
+		min-width: 0;
+		padding: 0.4rem 0.5rem;
+		font-size: 0.75rem;
+	}
+	/* The wrapped actions row spans the width; Apply crop grows into it. */
+	.wm-stage-toolbar .wm-stage-actions {
+		flex: 1;
+	}
+	.wm-stage-toolbar .wm-btn-accent {
+		flex: 1;
+	}
+}

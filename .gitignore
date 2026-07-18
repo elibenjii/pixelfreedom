@@ -1,0 +1,7 @@
+node_modules
+dist
+.claude
+.astro
+.vscode
+package-lock.json
+bun.lock
