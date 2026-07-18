@@ -1,0 +1,178 @@
+---
+import '../styles/watermark.css';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="robots" content="index,follow" />
+		<title>Support | Pixel Freedom</title>
+	</head>
+	<body>
+		<main>
+			<header class="page-header">
+				<h1>Support</h1>
+				<p>Pixel Freedom, Chrome extension</p>
+			</header>
+
+			<article class="prose">
+				<section>
+					<h2>Getting help</h2>
+					<p>
+						Have a question, hit a bug, or want to suggest a feature? Email
+						<a href="mailto:contact@pixelfreedom.xyz">contact@pixelfreedom.xyz</a>
+						and we'll get back to you. Including your browser, its version, and
+						the site you were on helps us reproduce the issue quickly.
+					</p>
+				</section>
+
+				<section>
+					<h2>How it works</h2>
+					<p>
+						Click the Pixel Freedom toolbar icon on any regular web page to open
+						the sidebar. Drop a photo file into it, or drag an image straight off
+						the page you're viewing. From there you can crop, resize, convert the
+						format, and strip metadata, then download a clean file. Everything runs
+						locally in your browser, so nothing you open is uploaded.
+					</p>
+				</section>
+
+				<section>
+					<h2>Common questions</h2>
+					<ul>
+						<li>
+							<strong>The icon does nothing on some pages.</strong> The sidebar
+							can't open on browser-internal pages such as <code>chrome://</code>,
+							the new-tab page, or the Chrome Web Store, because extensions can't
+							run there. Try it on a normal website.
+						</li>
+						<li>
+							<strong>An image I dragged won't load.</strong> Some sites serve
+							their images from other domains without permission to read them
+							directly. When that happens, right-click the image, choose "Save
+							image as", and drop the saved file into the sidebar instead.
+						</li>
+						<li>
+							<strong>The sidebar won't open on one specific site.</strong> A few
+							sites use a strict security policy that blocks embedded frames, which
+							prevents the sidebar from loading on that page. Other sites are
+							unaffected.
+						</li>
+						<li>
+							<strong>Where do my photos go?</strong> Nowhere. They stay in your
+							browser's memory for the editing session and are discarded when you
+							close the sidebar. See the
+							<a href="/privacy">privacy policy</a> for details.
+						</li>
+					</ul>
+				</section>
+			</article>
+
+			<footer class="page-footer">
+				<a href="/">← Back to Pixel Freedom</a>
+			</footer>
+		</main>
+
+		<style is:global>
+			main {
+				max-width: 760px;
+				margin: 0 auto;
+				padding: 3rem 1.25rem 5rem;
+			}
+
+			.page-header {
+				text-align: center;
+				margin: 0 auto 2.5rem;
+			}
+
+			.page-header h1 {
+				font-size: 2.5rem;
+				font-weight: 600;
+				letter-spacing: -0.03em;
+				margin: 0 0 0.5rem;
+				background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+				-webkit-background-clip: text;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.page-header p {
+				color: var(--text-muted);
+				font-size: 1.0625rem;
+				margin: 0;
+			}
+
+			.prose section {
+				margin-bottom: 2rem;
+			}
+
+			.prose h2 {
+				font-size: 1.25rem;
+				font-weight: 600;
+				letter-spacing: -0.02em;
+				color: var(--text-main);
+				margin: 0 0 0.75rem;
+			}
+
+			.prose p {
+				color: var(--text-muted);
+				font-size: 1rem;
+				line-height: 1.65;
+				margin: 0 0 0.75rem;
+			}
+
+			.prose ul {
+				margin: 0 0 0.75rem;
+				padding-left: 1.25rem;
+				color: var(--text-muted);
+				line-height: 1.65;
+			}
+
+			.prose li {
+				margin-bottom: 0.75rem;
+			}
+
+			.prose strong {
+				color: var(--text-main);
+			}
+
+			.prose code {
+				font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+				font-size: 0.875em;
+				background: var(--border-color);
+				padding: 0.1em 0.35em;
+				border-radius: 4px;
+			}
+
+			.prose a {
+				color: #a5b4fc;
+				text-decoration: none;
+			}
+
+			.prose a:hover {
+				text-decoration: underline;
+			}
+
+			.page-footer {
+				margin-top: 3rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid var(--border-color);
+				text-align: center;
+			}
+
+			.page-footer a {
+				color: var(--text-muted);
+				font-size: 0.9375rem;
+				text-decoration: none;
+			}
+
+			.page-footer a:hover {
+				color: var(--text-main);
+			}
+		</style>
+	</body>
+</html>
