@@ -16,19 +16,19 @@ import {
 } from "../lib/c2pa";
 import { encode as encodeWebP } from "@jsquash/webp";
 import { encode as encodeJpeg } from "@jsquash/jpeg";
-import Dropzone from "./watermark/Dropzone";
-import CropStage from "./watermark/CropStage";
-import AspectChips, { type AspectPreset } from "./watermark/AspectChips";
-import OutputSizeBar from "./watermark/OutputSizeBar";
+import Dropzone from "./homepage/Dropzone";
+import CropStage from "./homepage/CropStage";
+import AspectChips, { type AspectPreset } from "./homepage/AspectChips";
+import OutputSizeBar from "./homepage/OutputSizeBar";
 import FormatPanel, {
   FORMAT_LABELS,
   type OutputFormat,
   type SizeMode,
   type SourceFormat,
-} from "./watermark/FormatPanel";
-import ActionBar from "./watermark/ActionBar";
-import ProcessLog from "./watermark/ProcessLog";
-import MetadataPanel from "./watermark/MetadataPanel";
+} from "./homepage/FormatPanel";
+import ActionBar from "./homepage/ActionBar";
+import ProcessLog from "./homepage/ProcessLog";
+import MetadataPanel from "./homepage/MetadataPanel";
 
 // Preload only in the browser — during Astro's server-side prerender the
 // WASM asset URL is a root-relative path that fetch() can't parse in Node.
