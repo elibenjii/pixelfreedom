@@ -1,0 +1,233 @@
+---
+import '../styles/watermark.css';
+
+const lastUpdated = 'July 18, 2026';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="robots" content="index,follow" />
+		<title>Privacy Policy — Pixel Freedom</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<main>
+			<header class="page-header">
+				<h1>Privacy Policy</h1>
+				<p>Pixel Freedom — Chrome extension</p>
+				<p class="updated">Last updated: {lastUpdated}</p>
+			</header>
+
+			<article class="prose">
+				<section>
+					<h2>The short version</h2>
+					<p>
+						Pixel Freedom does not collect, store, transmit, or sell any of your
+						data. There are no accounts, no analytics, no trackers, and no servers.
+						Every photo you open is processed entirely on your own device, inside
+						your browser. Nothing you load into the extension ever leaves your
+						computer.
+					</p>
+				</section>
+
+				<section>
+					<h2>What the extension does</h2>
+					<p>
+						Pixel Freedom is a photo tool that opens as a sidebar over the page
+						you're browsing. It lets you crop, resize, convert the format of, and
+						strip the metadata from an image so the file you download comes out
+						clean. All of this — the image decoding, editing, metadata reading and
+						removal, and re-encoding — runs locally in your browser using
+						WebAssembly. No image or edit is uploaded anywhere.
+					</p>
+				</section>
+
+				<section>
+					<h2>Data we collect</h2>
+					<p><strong>None.</strong> Specifically, Pixel Freedom does not collect or process:</p>
+					<ul>
+						<li>Personal or identifying information</li>
+						<li>The images you open, edit, or download</li>
+						<li>Metadata read from your images (EXIF, C2PA, etc.)</li>
+						<li>Your browsing history or the content of pages you visit</li>
+						<li>Location, IP address, or device identifiers</li>
+						<li>Usage analytics or telemetry of any kind</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>How your images are handled</h2>
+					<p>
+						When you drop a file into the sidebar, or drag an image off the page
+						you're viewing, that image is held only in your browser's memory for
+						the duration of your editing session. It is passed to local, in-browser
+						code to be edited and re-encoded, and is discarded when you close the
+						sidebar or leave the page. It is never sent to us or any third party.
+					</p>
+				</section>
+
+				<section>
+					<h2>Permissions and why they're needed</h2>
+					<p>
+						Chrome requires the extension to declare certain permissions. Here is
+						exactly how each one is used:
+					</p>
+					<ul>
+						<li>
+							<strong>activeTab &amp; scripting</strong> — used to open the sidebar
+							on the current page only when you click the toolbar icon. Nothing runs
+							on any page until you explicitly invoke it.
+						</li>
+						<li>
+							<strong>Host access (http/https pages)</strong> — used solely to fetch
+							an image you deliberately drag into the sidebar from the page you're
+							browsing. It is not used for any background access to page content, and
+							the extension does not read, monitor, or transmit the pages you visit.
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Third parties</h2>
+					<p>
+						Pixel Freedom does not include any third-party analytics, advertising,
+						or tracking libraries, and it does not share data with anyone —
+						because it does not collect any data to share.
+					</p>
+				</section>
+
+				<section>
+					<h2>Children's privacy</h2>
+					<p>
+						Because Pixel Freedom collects no data at all, it collects no data from
+						children. The extension is safe for users of any age in this respect.
+					</p>
+				</section>
+
+				<section>
+					<h2>Changes to this policy</h2>
+					<p>
+						If this policy ever changes, the updated version will be posted on this
+						page with a new "Last updated" date. Continued use of the extension
+						after a change constitutes acceptance of the revised policy.
+					</p>
+				</section>
+
+				<section>
+					<h2>Contact</h2>
+					<p>
+						Questions about this policy or the extension's privacy practices can be
+						sent to
+						<a href="mailto:contact@pixelfreedom.xyz">contact@pixelfreedom.xyz</a>.
+					</p>
+				</section>
+			</article>
+
+			<footer class="page-footer">
+				<a href="/">← Back to Pixel Freedom</a>
+			</footer>
+		</main>
+
+		<style is:global>
+			main {
+				max-width: 760px;
+				margin: 0 auto;
+				padding: 3rem 1.25rem 5rem;
+			}
+
+			.page-header {
+				text-align: center;
+				margin: 0 auto 2.5rem;
+			}
+
+			.page-header h1 {
+				font-size: 2.5rem;
+				font-weight: 600;
+				letter-spacing: -0.03em;
+				margin: 0 0 0.5rem;
+				background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+				-webkit-background-clip: text;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.page-header p {
+				color: var(--text-muted);
+				font-size: 1.0625rem;
+				margin: 0;
+			}
+
+			.page-header .updated {
+				font-size: 0.875rem;
+				margin-top: 0.5rem;
+			}
+
+			.prose section {
+				margin-bottom: 2rem;
+			}
+
+			.prose h2 {
+				font-size: 1.25rem;
+				font-weight: 600;
+				letter-spacing: -0.02em;
+				color: var(--text-main);
+				margin: 0 0 0.75rem;
+			}
+
+			.prose p {
+				color: var(--text-muted);
+				font-size: 1rem;
+				line-height: 1.65;
+				margin: 0 0 0.75rem;
+			}
+
+			.prose ul {
+				margin: 0 0 0.75rem;
+				padding-left: 1.25rem;
+				color: var(--text-muted);
+				line-height: 1.65;
+			}
+
+			.prose li {
+				margin-bottom: 0.4rem;
+			}
+
+			.prose strong {
+				color: var(--text-main);
+			}
+
+			.prose a {
+				color: #a5b4fc;
+				text-decoration: none;
+			}
+
+			.prose a:hover {
+				text-decoration: underline;
+			}
+
+			.page-footer {
+				margin-top: 3rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid var(--border-color);
+				text-align: center;
+			}
+
+			.page-footer a {
+				color: var(--text-muted);
+				font-size: 0.9375rem;
+				text-decoration: none;
+			}
+
+			.page-footer a:hover {
+				color: var(--text-main);
+			}
+		</style>
+	</body>
+</html>
