@@ -1,5 +1,7 @@
 ---
 import '../styles/watermark.css';
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -10,6 +12,7 @@ import '../styles/watermark.css';
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="robots" content="index,follow" />
+		<link rel="canonical" href={canonical} />
 		<title>Support | Pixel Freedom</title>
 	</head>
 	<body>

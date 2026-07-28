@@ -2,6 +2,8 @@
 import '../styles/watermark.css';
 
 const lastUpdated = 'July 18, 2026';
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -12,6 +14,7 @@ const lastUpdated = 'July 18, 2026';
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="robots" content="index,follow" />
+		<link rel="canonical" href={canonical} />
 		<title>Privacy Policy | Pixel Freedom</title>
 	</head>
 	<body>

@@ -2,6 +2,8 @@
 import FreedomPixel from '../components/homepage.tsx';
 import c2paWasmSrc from '@contentauth/c2pa-web/resources/c2pa.wasm?url';
 import '../styles/watermark.css';
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -11,6 +13,7 @@ import '../styles/watermark.css';
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonical} />
 		<title>Pixel Freedom</title>
 		<link rel="preload" as="fetch" type="application/wasm" href={c2paWasmSrc} crossorigin />
 	</head>
