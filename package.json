@@ -8,11 +8,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "bun run build && wrangler dev",
     "astro": "astro",
-    "build:extension": "vite build --config extension/vite.config.mjs"
+    "build:extension": "vite build --config extension/vite.config.mjs",
+    "generate-types": "wrangler types",
+    "deploy": "bun run build && wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.1.5",
     "@astrojs/react": "^6.0.1",
     "@astrojs/sitemap": "^3.7.3",
     "@contentauth/c2pa-web": "^0.12.1",
@@ -29,5 +32,8 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-image-crop": "^11.1.2"
+  },
+  "devDependencies": {
+    "wrangler": "^4.114.0"
   }
 }
